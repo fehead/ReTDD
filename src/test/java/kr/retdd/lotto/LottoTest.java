@@ -26,7 +26,7 @@ public class LottoTest {
 	@Test
 	public void 로또_6개나오게_하기() {
 		Lotto	lotto = new Lotto();
-		List<Integer>  lottoNumbers = lotto.makeLotto();
+		List<Integer>  lottoNumbers = lotto.pickNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(7);
 		for(Integer l : lottoNumbers)
@@ -36,7 +36,7 @@ public class LottoTest {
 	@Test
 	public void test로또_중복_없는지_체크() {
 		Lotto	lotto = new Lotto();
-		List<Integer>  lottoNumbers = lotto.makeLotto();
+		List<Integer>  lottoNumbers = lotto.pickNumbers();
 		Set<Integer>	numberSet = new HashSet<>(lottoNumbers);
 		assertThat(numberSet.size()).isEqualTo(7);
 	}
