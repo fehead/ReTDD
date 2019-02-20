@@ -27,7 +27,10 @@ public class LottoTest {
 	public void 로또_6개나오게_하기() {
 		Lotto	lotto = new Lotto();
 		List<Integer>  lottoNumbers = lotto.makeLotto();
+		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(7);
+		for(Integer l : lottoNumbers)
+			System.out.print(l + " ");
 	}
 
 	@Test
