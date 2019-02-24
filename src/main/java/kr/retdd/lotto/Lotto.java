@@ -1,8 +1,10 @@
 package kr.retdd.lotto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class Lotto {
 	public static final int	MAX_LOTTO_NUMBER = 45;
@@ -73,11 +75,12 @@ public class Lotto {
 	}
 
 	public Integer lottery(List<Integer> numbers) {
-		int rightCnt = 0;
-		for(Integer n : numbers) {
-			if(getLottoNumbers().stream().anyMatch(l -> l == n))
-				rightCnt++;
-		}
+		Set<Integer>	lottoNumberSet = new HashSet<>(getLottoNumbers());
+		Set<Integer>	numbersSet = new HashSet<>(numbers);
+		
+		lottoNumberSet.retainAll(numbersSet);
+		
+		int rightCnt = lottoNumberSet.size();
 		
 		switch(rightCnt) {
 		case 3:

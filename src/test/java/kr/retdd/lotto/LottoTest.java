@@ -2,6 +2,7 @@ package kr.retdd.lotto;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -10,6 +11,8 @@ import java.util.Set;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import com.google.common.collect.Lists;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -117,6 +120,20 @@ public class LottoTest {
 		
 	}
 	
+	@Test
+	public void Set_교집합() {
+		Set<Integer> l1 = new HashSet<>(Arrays.asList(1, 2, 3));
+		Set<Integer> l2 = new HashSet<>(Arrays.asList(3, 4, 5));
+
+		l1.retainAll(l2);
+		System.out.println(l1);
+
+		l2.retainAll(l1);
+		System.out.println(l2);
+		
+		assertThat(l1).isNotNull();
+		assertThat(l1.size()).isEqualTo(1);
+	}
 	
 	private List<Integer> 맞는것_가져오기(List<Integer> lottoNumbers, int rightCnt) {
 		List<Integer> ret = new ArrayList<Integer>();
