@@ -31,7 +31,7 @@ public class LottoTest {
 	public void 로또_6개나오게_하기() {
 		Lotto	lotto = new Lotto();
 		lotto.pickNumbers();
-		List<Integer>  lottoNumbers = lotto.getLottoNumbers();
+		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
 		lotto.printNumbers();
@@ -41,8 +41,8 @@ public class LottoTest {
 	public void test로또_중복_없는지_체크() {
 		Lotto	lotto = new Lotto();
 		lotto.pickNumbers();
-		List<Integer>  lottoNumbers = lotto.getLottoNumbers();
-		Set<Integer>	numberSet = new HashSet<>(lottoNumbers);
+		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
+		Set<LottoNumber>	numberSet = new HashSet<>(lottoNumbers);
 		numberSet.add(lotto.getBonusNumber());
 		assertThat(numberSet.size()).isEqualTo(7);
 		lotto.printNumbers();
@@ -53,13 +53,13 @@ public class LottoTest {
 	public void 정렬_검사() {
 		Lotto	lotto = new Lotto();
 		lotto.pickNumbers();
-		List<Integer>  lottoNumbers = lotto.getLottoNumbers();
+		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
-		Integer	before = 0;
+		LottoNumber	before = LottoNumber.valueOf(1);
 				
-		for(Integer l : lottoNumbers) {
-			assertThat(l).isGreaterThan(before);
+		for(LottoNumber l : lottoNumbers) {
+			assertThat(l).isGreaterThanOrEqualTo(before);
 			before = l;
 		}
 		
@@ -71,47 +71,47 @@ public class LottoTest {
 	public void 로또_등수_검사() {
 		Lotto	lotto = new Lotto();
 		lotto.pickNumbers();
-		List<Integer>  lottoNumbers = lotto.getLottoNumbers();
+		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
 		lotto.printNumbers();
 		
-		List<Integer> lottoR0 = 맞는것_가져오기(lottoNumbers, 0);
+		List<LottoNumber> lottoR0 = 맞는것_가져오기(lottoNumbers, 0);
 		Integer r0 = lotto.lottery(lottoR0);
 		printNumbers("0개", lottoR0);
 		assertThat(r0).isEqualTo(0);
 
-		List<Integer> lottoR1 = 맞는것_가져오기(lottoNumbers, 1);
+		List<LottoNumber> lottoR1 = 맞는것_가져오기(lottoNumbers, 1);
 		Integer r1 = lotto.lottery(lottoR1);
 		printNumbers("1개", lottoR1);
 		assertThat(r1).isEqualTo(0);
 
-		List<Integer> lottoR2 = 맞는것_가져오기(lottoNumbers, 2);
+		List<LottoNumber> lottoR2 = 맞는것_가져오기(lottoNumbers, 2);
 		Integer r2 = lotto.lottery(lottoR2);
 		printNumbers("2개", lottoR2);
 		assertThat(r2).isEqualTo(0);
 
-		List<Integer> lottoR3 = 맞는것_가져오기(lottoNumbers, 3);
+		List<LottoNumber> lottoR3 = 맞는것_가져오기(lottoNumbers, 3);
 		Integer r3 = lotto.lottery(lottoR3);
 		printNumbers("3개", lottoR3);
 		assertThat(r3).isEqualTo(5);
 
-		List<Integer> lottoR4 = 맞는것_가져오기(lottoNumbers, 4);
+		List<LottoNumber> lottoR4 = 맞는것_가져오기(lottoNumbers, 4);
 		Integer r4 = lotto.lottery(lottoR4);
 		printNumbers("4개", lottoR4);
 		assertThat(r4).isEqualTo(4);
 
-		List<Integer> lottoR5 = 맞는것_가져오기(lottoNumbers, 5);
+		List<LottoNumber> lottoR5 = 맞는것_가져오기(lottoNumbers, 5);
 		Integer r5 = lotto.lottery(lottoR5);
 		printNumbers("5개", lottoR5);
 		assertThat(r5).isEqualTo(3);
 
-		List<Integer> lottoR6 = 맞는것_가져오기(lottoNumbers, 6);
+		List<LottoNumber> lottoR6 = 맞는것_가져오기(lottoNumbers, 6);
 		Integer r6 = lotto.lottery(lottoR6);
 		printNumbers("6개", lottoR6);
 		assertThat(r6).isEqualTo(1);
 
-		List<Integer> lottoRBouns = new ArrayList<>(lottoNumbers);
+		List<LottoNumber> lottoRBouns = new ArrayList<>(lottoNumbers);
 		lottoRBouns.remove(0);
 		lottoRBouns.add(lotto.getBonusNumber());
 		Integer rBouns = lotto.lottery(lottoRBouns);
@@ -135,28 +135,28 @@ public class LottoTest {
 		assertThat(l1.size()).isEqualTo(1);
 	}
 	
-	private List<Integer> 맞는것_가져오기(List<Integer> lottoNumbers, int rightCnt) {
-		List<Integer> ret = new ArrayList<Integer>();
+	private List<LottoNumber> 맞는것_가져오기(List<LottoNumber> lottoNumbers, int rightCnt) {
+		List<LottoNumber> ret = new ArrayList<>();
 		for(int i = 0 ; i < rightCnt ; ++i)
 			ret.add(lottoNumbers.get(i));
 		
 		for(int i = 1 ; i <= Lotto.MAX_LOTTO_NUMBER; ++i) {
 			if(ret.size() == Lotto.WIN_LOTTO_SIZE)
 				break;
-			if(!lottoIn(lottoNumbers, i))
-				ret.add(i);
+			if(!lottoIn(lottoNumbers, LottoNumber.valueOf(i)))
+				ret.add(LottoNumber.valueOf(i));
 		}
 		
 		return ret;
 	}
 	
-	private boolean lottoIn(List<Integer> lottoNumbers, int num) {
-		return lottoNumbers.stream().anyMatch(l -> l == num);
+	private boolean lottoIn(List<LottoNumber> lottoNumbers, LottoNumber num) {
+		return lottoNumbers.stream().anyMatch(l -> l.equals(num));
 	}
 	
-	public void printNumbers(String msg, List<Integer> lottoNumbers) {
+	public void printNumbers(String msg, List<LottoNumber> lottoNumbers) {
 		System.out.print(msg + " LottoNumber: ");
-		for(Integer l : lottoNumbers)
+		for(LottoNumber l : lottoNumbers)
 			System.out.print(l + " ");
 		System.out.println("");
 	}	
