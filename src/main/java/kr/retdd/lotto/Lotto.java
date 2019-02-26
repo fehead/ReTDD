@@ -58,7 +58,7 @@ public class Lotto {
 	
 	private void initCandidateNumbers() {
 		candiNumbers = new ArrayList<>();
-		for(int i = MIN_LOTTO_NUMBER ; i <= MAX_LOTTO_NUMBER ; ++i)
+		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER ; ++i)
 			candiNumbers.add(LottoNumber.valueOf(i));
 	}
 	
