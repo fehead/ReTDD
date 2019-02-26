@@ -12,8 +12,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import com.google.common.collect.Lists;
-
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LottoTest {
@@ -140,7 +138,7 @@ public class LottoTest {
 		for(int i = 0 ; i < rightCnt ; ++i)
 			ret.add(lottoNumbers.get(i));
 		
-		for(int i = 1 ; i <= Lotto.MAX_LOTTO_NUMBER; ++i) {
+		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER; ++i) {
 			if(ret.size() == Lotto.WIN_LOTTO_SIZE)
 				break;
 			if(!lottoIn(lottoNumbers, LottoNumber.valueOf(i)))

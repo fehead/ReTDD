@@ -7,21 +7,18 @@ import java.util.Random;
 import java.util.Set;
 
 public class Lotto {
-	public	static final int	MAX_LOTTO_NUMBER = 45;
 	public	static final int	WIN_LOTTO_SIZE = 6;
-	
-	private	static final int	MIN_LOTTO_NUMBER = 1;
 
 	private	Random generator = new Random();
 	private	List<LottoNumber> candiNumbers;
 	private	List<LottoNumber> lottoNumbers;
 	private	LottoNumber			bonusNumber;
 
-	public Lotto() {
-		initCandidateNumbers();
+	public Lotto() {		
 	}
 
 	public void pickNumbers() {
+		initCandidateNumbers();
 		lottoNumbers = new ArrayList<>();
 		for(int i = 0 ; i < WIN_LOTTO_SIZE ; ++i)
 			addLottoNumber(pickNumber());
