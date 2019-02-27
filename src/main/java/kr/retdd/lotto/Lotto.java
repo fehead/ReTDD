@@ -14,11 +14,21 @@ public class Lotto {
 	private	List<LottoNumber> lottoNumbers;
 	private	LottoNumber			bonusNumber;
 
-	public Lotto() {		
+	private	Lotto() {		
 	}
 
-	public void pickNumbers() {
+	static public Lotto generate() {
+		Lotto ret = new Lotto();
+		ret.lottery();
+		return ret;
+	}
+	
+	private void lottery() {
 		initCandidateNumbers();
+		pickNumbers();
+	}
+
+	private void pickNumbers() {
 		lottoNumbers = new ArrayList<>();
 		for(int i = 0 ; i < WIN_LOTTO_SIZE ; ++i)
 			addLottoNumber(pickNumber());
@@ -71,7 +81,7 @@ public class Lotto {
 		this.bonusNumber = bonusNumber;
 	}
 
-	public Integer lottery(List<LottoNumber> numbers) {
+	public Integer lookAt(List<LottoNumber> numbers) {
 		Set<LottoNumber>	lottoNumberSet = new HashSet<>(getLottoNumbers());
 		Set<LottoNumber>	numbersSet = new HashSet<>(numbers);
 		

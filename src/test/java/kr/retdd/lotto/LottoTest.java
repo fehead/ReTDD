@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -15,6 +16,13 @@ import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LottoTest {
+	
+	private	Lotto	lotto;
+	
+	@Before
+	public void setUp() throws Exception {
+		lotto = Lotto.generate();
+	}
 	
 	@Test
 	public void testRandom() throws Exception {
@@ -27,8 +35,6 @@ public class LottoTest {
 	
 	@Test
 	public void 로또_6개나오게_하기() {
-		Lotto	lotto = new Lotto();
-		lotto.pickNumbers();
 		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
@@ -37,8 +43,6 @@ public class LottoTest {
 
 	@Test
 	public void test로또_중복_없는지_체크() {
-		Lotto	lotto = new Lotto();
-		lotto.pickNumbers();
 		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		Set<LottoNumber>	numberSet = new HashSet<>(lottoNumbers);
 		numberSet.add(lotto.getBonusNumber());
@@ -49,8 +53,6 @@ public class LottoTest {
 	
 	@Test
 	public void 정렬_검사() {
-		Lotto	lotto = new Lotto();
-		lotto.pickNumbers();
 		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
@@ -67,52 +69,50 @@ public class LottoTest {
 	
 	@Test
 	public void 로또_등수_검사() {
-		Lotto	lotto = new Lotto();
-		lotto.pickNumbers();
 		List<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
 		lotto.printNumbers();
 		
 		List<LottoNumber> lottoR0 = 맞는것_가져오기(lottoNumbers, 0);
-		Integer r0 = lotto.lottery(lottoR0);
+		Integer r0 = lotto.lookAt(lottoR0);
 		printNumbers("0개", lottoR0);
 		assertThat(r0).isEqualTo(0);
 
 		List<LottoNumber> lottoR1 = 맞는것_가져오기(lottoNumbers, 1);
-		Integer r1 = lotto.lottery(lottoR1);
+		Integer r1 = lotto.lookAt(lottoR1);
 		printNumbers("1개", lottoR1);
 		assertThat(r1).isEqualTo(0);
 
 		List<LottoNumber> lottoR2 = 맞는것_가져오기(lottoNumbers, 2);
-		Integer r2 = lotto.lottery(lottoR2);
+		Integer r2 = lotto.lookAt(lottoR2);
 		printNumbers("2개", lottoR2);
 		assertThat(r2).isEqualTo(0);
 
 		List<LottoNumber> lottoR3 = 맞는것_가져오기(lottoNumbers, 3);
-		Integer r3 = lotto.lottery(lottoR3);
+		Integer r3 = lotto.lookAt(lottoR3);
 		printNumbers("3개", lottoR3);
 		assertThat(r3).isEqualTo(5);
 
 		List<LottoNumber> lottoR4 = 맞는것_가져오기(lottoNumbers, 4);
-		Integer r4 = lotto.lottery(lottoR4);
+		Integer r4 = lotto.lookAt(lottoR4);
 		printNumbers("4개", lottoR4);
 		assertThat(r4).isEqualTo(4);
 
 		List<LottoNumber> lottoR5 = 맞는것_가져오기(lottoNumbers, 5);
-		Integer r5 = lotto.lottery(lottoR5);
+		Integer r5 = lotto.lookAt(lottoR5);
 		printNumbers("5개", lottoR5);
 		assertThat(r5).isEqualTo(3);
 
 		List<LottoNumber> lottoR6 = 맞는것_가져오기(lottoNumbers, 6);
-		Integer r6 = lotto.lottery(lottoR6);
+		Integer r6 = lotto.lookAt(lottoR6);
 		printNumbers("6개", lottoR6);
 		assertThat(r6).isEqualTo(1);
 
 		List<LottoNumber> lottoRBouns = new ArrayList<>(lottoNumbers);
 		lottoRBouns.remove(0);
 		lottoRBouns.add(lotto.getBonusNumber());
-		Integer rBouns = lotto.lottery(lottoRBouns);
+		Integer rBouns = lotto.lookAt(lottoRBouns);
 		printNumbers("5개 + 보너스", lottoRBouns);
 		assertThat(rBouns).isEqualTo(2);
 		

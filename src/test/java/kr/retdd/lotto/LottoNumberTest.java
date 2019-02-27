@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LottoNumberTest {
-	private	LottoNumber	lottoNumber;
 	
 	@Before
 	public void setUp() throws Exception {		
