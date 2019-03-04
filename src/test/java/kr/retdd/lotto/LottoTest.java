@@ -139,7 +139,7 @@ public class LottoTest {
 			ret.add(lottoNumbers.get(i));
 		
 		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER; ++i) {
-			if(ret.size() == Lotto.WIN_LOTTO_SIZE)
+			if(ret.size() == Lotto.LOTTO_SIZE)
 				break;
 			if(!lottoIn(lottoNumbers, LottoNumber.valueOf(i)))
 				ret.add(LottoNumber.valueOf(i));

@@ -7,13 +7,13 @@ import java.util.Random;
 import java.util.Set;
 
 public class Lotto {
-	public	static final int	WIN_LOTTO_SIZE = 6;
+	public	static final int	LOTTO_SIZE = 6;
 
 	private	Random generator = new Random();
 	private	List<LottoNumber> candiNumbers;
 	private	List<LottoNumber> lottoNumbers;
 	private	LottoNumber			bonusNumber;
-
+	
 	private	Lotto() {		
 	}
 
@@ -23,6 +23,18 @@ public class Lotto {
 		return ret;
 	}
 	
+	static public Lotto generateFrom(String numbers) {
+		Lotto ret = new Lotto();
+		ret.lotteryFrom(numbers);
+		return ret;
+	}
+	
+	private void lotteryFrom(String numbers) {
+		String [] numberArr = numbers.split(",");
+		if(numberArr.length != LOTTO_SIZE)
+			throw new IllegalArgumentException("로또번호는 " + LOTTO_SIZE + "개 이여야 합니다.");
+	}
+
 	private void lottery() {
 		initCandidateNumbers();
 		pickNumbers();
@@ -30,7 +42,7 @@ public class Lotto {
 
 	private void pickNumbers() {
 		lottoNumbers = new ArrayList<>();
-		for(int i = 0 ; i < WIN_LOTTO_SIZE ; ++i)
+		for(int i = 0 ; i < LOTTO_SIZE ; ++i)
 			addLottoNumber(pickNumber());
 		setBonusNumber(pickNumber());
 	}

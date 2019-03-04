@@ -9,6 +9,12 @@ public class LottoNumber implements Comparable<LottoNumber>{
 	private LottoNumber(Integer number) {
 		this.number = number;
 	}
+
+	static public LottoNumber valueOf(String numberString) {
+		Integer number = Integer.valueOf(numberString);
+		return valueOf(number);		
+	}
+
 	
 	static public LottoNumber valueOf(int number) {
 		if(number < MIN_NUMBER || MAX_NUMBER < number)

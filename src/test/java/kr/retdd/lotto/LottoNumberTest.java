@@ -1,7 +1,6 @@
 package kr.retdd.lotto;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThat;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,5 +31,10 @@ public class LottoNumberTest {
 		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER ; ++i) {
 			assertThat(LottoNumber.valueOf(i)).isNotNull();
 		}
+	}
+	
+	@Test(expected=NumberFormatException.class)
+	public void 숫자가_아닌수() {
+		LottoNumber.valueOf("A");		
 	}
 }
