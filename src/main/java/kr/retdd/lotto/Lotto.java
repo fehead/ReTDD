@@ -5,13 +5,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Lotto {
 	public	static final int	LOTTO_SIZE = 6;
 
 	private	Random generator = new Random();
 	private	List<LottoNumber> candiNumbers;
-	private	List<LottoNumber> lottoNumbers;
+	private	Set<LottoNumber> lottoNumbers;
 	private	LottoNumber			bonusNumber;
 	
 	private	Lotto() {		
@@ -33,6 +34,11 @@ public class Lotto {
 		String [] numberArr = numbers.split(",");
 		if(numberArr.length != LOTTO_SIZE)
 			throw new IllegalArgumentException("로또번호는 " + LOTTO_SIZE + "개 이여야 합니다.");
+		
+		lottoNumbers = new TreeSet<>();
+		for(String n : numberArr)
+			addLottoNumber(LottoNumber.valueOf(n));
+			
 	}
 
 	private void lottery() {
@@ -41,13 +47,13 @@ public class Lotto {
 	}
 
 	private void pickNumbers() {
-		lottoNumbers = new ArrayList<>();
+		lottoNumbers = new TreeSet<>();
 		for(int i = 0 ; i < LOTTO_SIZE ; ++i)
 			addLottoNumber(pickNumber());
 		setBonusNumber(pickNumber());
 	}
 
-	public List<LottoNumber> getLottoNumbers() {
+	public Set<LottoNumber> getLottoNumbers() {
 		return lottoNumbers;
 	}
 
@@ -65,13 +71,6 @@ public class Lotto {
 	}
 	
 	private void addLottoNumber(LottoNumber newNumber) {
-		for(int i = 0 ; i < getLottoNumbers().size() ; ++i) {
-			LottoNumber l = getLottoNumbers().get(i);
-			if(newNumber.compareTo(l) < 0) {
-				getLottoNumbers().add(i, newNumber);
-				return;
-			}
-		}
 		getLottoNumbers().add(newNumber);
 	}
 	
@@ -93,11 +92,9 @@ public class Lotto {
 		this.bonusNumber = bonusNumber;
 	}
 
-	public Integer lookAt(List<LottoNumber> numbers) {
-		Set<LottoNumber>	lottoNumberSet = new HashSet<>(getLottoNumbers());
-		Set<LottoNumber>	numbersSet = new HashSet<>(numbers);
-		
-		lottoNumberSet.retainAll(numbersSet);
+	public Integer lookAt(Set<LottoNumber> numbers) {
+		Set<LottoNumber>	lottoNumberSet = new TreeSet<>(getLottoNumbers());		
+		lottoNumberSet.retainAll(numbers);
 		
 		int rightCnt = lottoNumberSet.size();
 		
