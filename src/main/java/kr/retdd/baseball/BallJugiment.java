@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.IntPredicate;
+import java.util.stream.Collectors;
 
 public class BallJugiment {
 	private	int	strike = 0;
@@ -40,8 +41,8 @@ public class BallJugiment {
 		int ret = 0;
 		for(int i = 0 ; i < ownBalls.size() ; ++i) {
 			List<Ball> copyOther = new ArrayList<>(otherBalls);
-			copyOther.remove(i);
-			if(new TreeSet<>(copyOther).contains(ownBalls.get(i)))
+			copyOther.remove(i);		
+			if(copyOther.contains(ownBalls.get(i)))
 				ret++;
 		}
 		return ret;
@@ -49,9 +50,8 @@ public class BallJugiment {
 	
 	private static int out(List<Ball> ownBalls, List<Ball> otherBalls) {
 		int ret = 0;
-		Set<Ball>	oSet = new TreeSet<>(otherBalls);
 		for(Ball b : ownBalls) {
-			if(!oSet.contains(b))
+			if(!otherBalls.contains(b))
 				ret++;
 		}
 		
