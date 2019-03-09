@@ -5,7 +5,7 @@ public enum LottoRank {
 	RANK2(5, true),
 	RANK3(5, false),
 	RANK4(4, false),
-	RANK5(3, false);
+	RANK5(3, false);	
 	
 	private	int		rightCnt;
 	private	boolean	eqBonusNum;
