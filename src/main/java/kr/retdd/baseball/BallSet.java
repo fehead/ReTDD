@@ -10,7 +10,7 @@ public class BallSet {
 	List<Ball>	balls;
 
 	public static BallSet valueOf(String ballStr) {
-		String [] ballArr = ballStr.split(",");
+		String [] ballArr = ballStr.split("");
 		if(ballArr.length != 3)
 			throw new IllegalArgumentException("볼수는 3개이여야 합니다.");
 		

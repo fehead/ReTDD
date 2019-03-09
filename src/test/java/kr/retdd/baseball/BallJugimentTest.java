@@ -11,17 +11,17 @@ public class BallJugimentTest {
 	
 	@Before
 	public void 볼셋팅() {
-		ballSet = BallSet.valueOf("1,2,3");
+		ballSet = BallSet.valueOf("123");
 	}
 	
 	@Test public void 판정_테스트1() {
-		BallSet s3 = BallSet.valueOf("1,2,3");
+		BallSet s3 = BallSet.valueOf("123");
 		BallJugiment bj = BallJugiment.jugiment(ballSet, s3);
 		assertThat(bj.getStrike()).isEqualTo(3);
 	}
 	
 	@Test public void 판정_테스트2() {
-		BallSet s3 = BallSet.valueOf("2,3,1");
+		BallSet s3 = BallSet.valueOf("231");
 		BallJugiment bj = BallJugiment.jugiment(ballSet, s3);
 		assertThat(bj.getStrike()).isEqualTo(0);
 		assertThat(bj.getBall()).isEqualTo(3);
@@ -29,7 +29,7 @@ public class BallJugimentTest {
 	}
 	
 	@Test public void 판정_테스트3() {
-		BallSet s3 = BallSet.valueOf("2,3,4");
+		BallSet s3 = BallSet.valueOf("234");
 		BallJugiment bj = BallJugiment.jugiment(ballSet, s3);
 		assertThat(bj.getStrike()).isEqualTo(0);
 		assertThat(bj.getBall()).isEqualTo(2);
@@ -37,7 +37,7 @@ public class BallJugimentTest {
 	}
 	
 	@Test public void 판정_테스트4() {
-		BallSet s3 = BallSet.valueOf("4,1,2");
+		BallSet s3 = BallSet.valueOf("412");
 		BallJugiment bj = BallJugiment.jugiment(ballSet, s3);
 		assertThat(bj.getStrike()).isEqualTo(0);
 		assertThat(bj.getBall()).isEqualTo(2);
@@ -45,7 +45,7 @@ public class BallJugimentTest {
 	}
 	
 	@Test public void 판정_테스트5() {
-		BallSet s3 = BallSet.valueOf("1,4,2");
+		BallSet s3 = BallSet.valueOf("142");
 		BallJugiment bj = BallJugiment.jugiment(ballSet, s3);
 		assertThat(bj.getStrike()).isEqualTo(1);
 		assertThat(bj.getBall()).isEqualTo(1);
@@ -53,7 +53,7 @@ public class BallJugimentTest {
 	}
 	
 	@Test public void 판정_테스트6() {
-		BallSet s3 = BallSet.valueOf("4,5,6");
+		BallSet s3 = BallSet.valueOf("456");
 		BallJugiment bj = BallJugiment.jugiment(ballSet, s3);
 		assertThat(bj.getStrike()).isEqualTo(0);
 		assertThat(bj.getBall()).isEqualTo(0);
