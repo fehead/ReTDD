@@ -69,4 +69,14 @@ public class BallJugiment {
 	public Integer getOut() {
 		return this.out;
 	}
+
+	public boolean isWin() {
+		return this.strike == 3;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%d스트라이크, %d볼, %d아웃", this.strike, this.ball, this.out);
+	}
+
 }
