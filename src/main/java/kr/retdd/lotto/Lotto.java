@@ -25,16 +25,16 @@ public class Lotto {
 	}
 	
 	static public Lotto generateFrom(String numbers) {
-		Lotto ret = new Lotto();
-		ret.lotteryFrom(numbers);
-		return ret;
-	}
-	
-	private void lotteryFrom(String numbers) {
 		String [] numberArr = numbers.split(",");
 		if(numberArr.length != LOTTO_SIZE)
 			throw new IllegalArgumentException("로또번호는 " + LOTTO_SIZE + "개 이여야 합니다.");
-		
+
+		Lotto ret = new Lotto();
+		ret.lotteryFrom(numberArr);
+		return ret;
+	}
+	
+	private void lotteryFrom(String [] numberArr) {
 		lottoNumbers = new TreeSet<>();
 		for(String n : numberArr)
 			addLottoNumber(LottoNumber.valueOf(n));
@@ -92,27 +92,13 @@ public class Lotto {
 		this.bonusNumber = bonusNumber;
 	}
 
-	public Integer lookAt(Set<LottoNumber> numbers) {
+	public LottoRank lookAt(Set<LottoNumber> numbers) {
 		Set<LottoNumber>	lottoNumberSet = new TreeSet<>(getLottoNumbers());		
 		lottoNumberSet.retainAll(numbers);
 		
-		int rightCnt = lottoNumberSet.size();
-		
-		switch(rightCnt) {
-		case 3:
-			return 5;
-		case 4:
-			return 4;
-		case 5:
-			if(numbers.stream().anyMatch(l -> l.equals(getBonusNumber())))
-				return 2;
-			return 3;
-		case 6:
-			return 1;
-		default:
-			return 0;
-		}
-
+		int matchCount = lottoNumberSet.size();
+		boolean	matchBonus = numbers.stream().anyMatch(l -> l.equals(getBonusNumber()));
+		return LottoRank.from(matchCount, matchBonus);
 	}
 
 }

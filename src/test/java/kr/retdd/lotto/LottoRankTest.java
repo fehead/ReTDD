@@ -39,6 +39,7 @@ public class LottoRankTest {
 	public void RANKETC_TEST() {
 		assertThat(LottoRank.from(2, false)).isEqualTo(LottoRank.RANK_ETC);
 		assertThat(LottoRank.from(1, false)).isEqualTo(LottoRank.RANK_ETC);
+		assertThat(LottoRank.from(0, false)).isEqualTo(LottoRank.RANK_ETC);
 	}
 	
 }

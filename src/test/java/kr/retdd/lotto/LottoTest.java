@@ -77,47 +77,47 @@ public class LottoTest {
 		lotto.printNumbers();
 		
 		Set<LottoNumber> lottoR0 = 맞는것_가져오기(lottoNumbers, 0);
-		Integer r0 = lotto.lookAt(lottoR0);
+		LottoRank r0 = lotto.lookAt(lottoR0);
 		printNumbers("0개", lottoR0);
-		assertThat(r0).isEqualTo(0);
+		assertThat(r0).isEqualTo(LottoRank.RANK_ETC);
 
 		Set<LottoNumber> lottoR1 = 맞는것_가져오기(lottoNumbers, 1);
-		Integer r1 = lotto.lookAt(lottoR1);
+		LottoRank r1 = lotto.lookAt(lottoR1);
 		printNumbers("1개", lottoR1);
-		assertThat(r1).isEqualTo(0);
+		assertThat(r1).isEqualTo(LottoRank.RANK_ETC);
 
 		Set<LottoNumber> lottoR2 = 맞는것_가져오기(lottoNumbers, 2);
-		Integer r2 = lotto.lookAt(lottoR2);
+		LottoRank r2 = lotto.lookAt(lottoR2);
 		printNumbers("2개", lottoR2);
-		assertThat(r2).isEqualTo(0);
+		assertThat(r2).isEqualTo(LottoRank.RANK_ETC);
 
 		Set<LottoNumber> lottoR3 = 맞는것_가져오기(lottoNumbers, 3);
-		Integer r3 = lotto.lookAt(lottoR3);
+		LottoRank r3 = lotto.lookAt(lottoR3);
 		printNumbers("3개", lottoR3);
-		assertThat(r3).isEqualTo(5);
+		assertThat(r3).isEqualTo(LottoRank.RANK_5);
 
 		Set<LottoNumber> lottoR4 = 맞는것_가져오기(lottoNumbers, 4);
-		Integer r4 = lotto.lookAt(lottoR4);
+		LottoRank r4 = lotto.lookAt(lottoR4);
 		printNumbers("4개", lottoR4);
-		assertThat(r4).isEqualTo(4);
+		assertThat(r4).isEqualTo(LottoRank.RANK_4);
 
 		Set<LottoNumber> lottoR5 = 맞는것_가져오기(lottoNumbers, 5);
-		Integer r5 = lotto.lookAt(lottoR5);
+		LottoRank r5 = lotto.lookAt(lottoR5);
 		printNumbers("5개", lottoR5);
-		assertThat(r5).isEqualTo(3);
+		assertThat(r5).isEqualTo(LottoRank.RANK_3);
 
 		Set<LottoNumber> lottoR6 = 맞는것_가져오기(lottoNumbers, 6);
-		Integer r6 = lotto.lookAt(lottoR6);
+		LottoRank r6 = lotto.lookAt(lottoR6);
 		printNumbers("6개", lottoR6);
-		assertThat(r6).isEqualTo(1);
+		assertThat(r6).isEqualTo(LottoRank.RANK_1);
 
 		Set<LottoNumber> lottoRBouns = new TreeSet<>(lottoNumbers);
 		LottoNumber l = (LottoNumber)lottoNumbers.toArray()[0];
 		lottoRBouns.remove(l);		
 		lottoRBouns.add(lotto.getBonusNumber());
-		Integer rBouns = lotto.lookAt(lottoRBouns);
+		LottoRank rBouns = lotto.lookAt(lottoRBouns);
 		printNumbers("5개 + 보너스", lottoRBouns);
-		assertThat(rBouns).isEqualTo(2);
+		assertThat(rBouns).isEqualTo(LottoRank.RANK_2);
 		
 	}
 	
