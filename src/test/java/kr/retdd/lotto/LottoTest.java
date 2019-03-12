@@ -1,10 +1,8 @@
 package kr.retdd.lotto;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -58,7 +56,7 @@ public class LottoTest {
 		Set<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
-		LottoNumber	before = LottoNumber.valueOf(1);
+		LottoNumber	before = LottoNumber.from(1);
 				
 		for(LottoNumber l : lottoNumbers) {
 			assertThat(l).isGreaterThanOrEqualTo(before);
@@ -155,8 +153,8 @@ public class LottoTest {
 		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER; ++i) {
 			if(ret.size() == Lotto.LOTTO_SIZE)
 				break;
-			if(!lottoIn(lottoNumbers, LottoNumber.valueOf(i)))
-				ret.add(LottoNumber.valueOf(i));
+			if(!lottoIn(lottoNumbers, LottoNumber.from(i)))
+				ret.add(LottoNumber.from(i));
 		}
 		
 		return ret;
