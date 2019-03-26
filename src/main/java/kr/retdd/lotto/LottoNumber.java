@@ -10,13 +10,13 @@ public class LottoNumber implements Comparable<LottoNumber>{
 		this.number = number;
 	}
 
-	static public LottoNumber valueOf(String numberString) {
+	static public LottoNumber from(String numberString) {
 		Integer number = Integer.valueOf(numberString);
-		return valueOf(number);		
+		return from(number);		
 	}
 
 	
-	static public LottoNumber valueOf(int number) {
+	static public LottoNumber from(int number) {
 		if(number < MIN_NUMBER || MAX_NUMBER < number)
 			throw new IllegalArgumentException("로또번호는 " + MIN_NUMBER + "과 " + MAX_NUMBER + "사이 값 이어야 합니다.");
 		

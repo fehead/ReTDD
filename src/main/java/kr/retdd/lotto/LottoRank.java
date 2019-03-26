@@ -1,18 +1,37 @@
 package kr.retdd.lotto;
 
 public enum LottoRank {
-	RANK1(6, false),
-	RANK2(5, true),
-	RANK3(5, false),
-	RANK4(4, false),
-	RANK5(3, false);	
+	RANK_1(6, false),
+	RANK_2(5, true),
+	RANK_3(5, false),
+	RANK_4(4, false),
+	RANK_5(3, false),
+	RANK_ETC(0, false);
 	
-	private	int		rightCnt;
-	private	boolean	eqBonusNum;
+	private	int		matchCount;
+	private	boolean	matchBonus;
 	
-	LottoRank(int rightCnt, boolean eqBonusNum) {
-		this.rightCnt = rightCnt;
-		this.eqBonusNum = eqBonusNum;
+	LottoRank(int matchCount, boolean matchBonus) {
+		this.matchCount = matchCount;
+		this.matchBonus = matchBonus;
+	}
+	
+	public static LottoRank from(int matchCount, boolean matchBonus) {
+		for(LottoRank l : values()) {
+			if(l.getMatchCount() == matchCount) {
+				if(l == RANK_2 && !matchBonus)
+					continue;
+				return l;
+			}
+		}
+		return RANK_ETC;
 	}
 
+	public int getMatchCount() {
+		return matchCount;
+	}
+
+	public boolean isMatchBonus() {
+		return matchBonus;
+	}
 }

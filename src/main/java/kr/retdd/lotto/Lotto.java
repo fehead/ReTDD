@@ -1,11 +1,12 @@
 package kr.retdd.lotto;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Lotto {
 	public	static final int	LOTTO_SIZE = 6;
@@ -25,20 +26,19 @@ public class Lotto {
 	}
 	
 	static public Lotto generateFrom(String numbers) {
-		Lotto ret = new Lotto();
-		ret.lotteryFrom(numbers);
-		return ret;
-	}
-	
-	private void lotteryFrom(String numbers) {
 		String [] numberArr = numbers.split(",");
 		if(numberArr.length != LOTTO_SIZE)
 			throw new IllegalArgumentException("로또번호는 " + LOTTO_SIZE + "개 이여야 합니다.");
-		
-		lottoNumbers = new TreeSet<>();
-		for(String n : numberArr)
-			addLottoNumber(LottoNumber.valueOf(n));
-			
+
+		Lotto ret = new Lotto();
+		ret.from(numberArr);
+		return ret;
+	}
+	
+	private void from(String [] numberArr) {
+		lottoNumbers = Arrays.stream(numberArr)
+			.map(LottoNumber::from)
+			.collect(Collectors.toCollection(TreeSet::new));
 	}
 
 	private void lottery() {
@@ -46,10 +46,10 @@ public class Lotto {
 		pickNumbers();
 	}
 
-	private void pickNumbers() {
-		lottoNumbers = new TreeSet<>();
-		for(int i = 0 ; i < LOTTO_SIZE ; ++i)
-			addLottoNumber(pickNumber());
+	private void pickNumbers() {		
+		lottoNumbers = IntStream.range(0, LOTTO_SIZE)
+			.mapToObj(i -> pickNumber())
+			.collect(Collectors.toCollection(TreeSet::new));
 		setBonusNumber(pickNumber());
 	}
 
@@ -63,21 +63,19 @@ public class Lotto {
 	
 	public void printNumbers() {
 		System.out.print("LottoNumber: ");
-		for(LottoNumber l : lottoNumbers)
-			System.out.print(l + " ");
+		lottoNumbers.stream()
+			.map(l -> l.toString() + " ")
+			.forEach(System.out::print);
 		
 		System.out.print("Bonus: " + this.bonusNumber);
 		System.out.println("");
 	}
 	
-	private void addLottoNumber(LottoNumber newNumber) {
-		getLottoNumbers().add(newNumber);
-	}
-	
 	private void initCandidateNumbers() {
-		candiNumbers = new ArrayList<>();
-		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER ; ++i)
-			candiNumbers.add(LottoNumber.valueOf(i));
+		candiNumbers = IntStream
+				.rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
+				.mapToObj(LottoNumber::from)
+				.collect(Collectors.toList());
 	}
 	
 	private int getRandomIndex(int boundrayNum) {		
@@ -92,27 +90,13 @@ public class Lotto {
 		this.bonusNumber = bonusNumber;
 	}
 
-	public Integer lookAt(Set<LottoNumber> numbers) {
+	public LottoRank lookAt(Set<LottoNumber> numbers) {
 		Set<LottoNumber>	lottoNumberSet = new TreeSet<>(getLottoNumbers());		
 		lottoNumberSet.retainAll(numbers);
 		
-		int rightCnt = lottoNumberSet.size();
-		
-		switch(rightCnt) {
-		case 3:
-			return 5;
-		case 4:
-			return 4;
-		case 5:
-			if(numbers.stream().anyMatch(l -> l.equals(getBonusNumber())))
-				return 2;
-			return 3;
-		case 6:
-			return 1;
-		default:
-			return 0;
-		}
-
+		int matchCount = lottoNumberSet.size();
+		boolean	matchBonus = numbers.stream().anyMatch(l -> l.equals(getBonusNumber()));
+		return LottoRank.from(matchCount, matchBonus);
 	}
 
 }
