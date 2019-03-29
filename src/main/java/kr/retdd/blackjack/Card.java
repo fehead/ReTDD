@@ -19,4 +19,12 @@ public class Card {
 	public String	toString() {
 		return String.format("%s %s", suit.toString(), rank.toString());
 	}
+	
+	public int firstScore() {
+		return rank.getFirstValue();
+	}
+	
+	public int secondScore() {
+		return rank.getSecondValue();
+	}
 }

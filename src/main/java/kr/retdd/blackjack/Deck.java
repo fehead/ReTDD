@@ -2,7 +2,9 @@ package kr.retdd.blackjack;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Deck {
 	private	List<Card>	cards;
@@ -31,5 +33,18 @@ public class Deck {
 		cards.stream()
 			.forEach(card -> sb.append(card.toString() + "\n"));
 		return sb.toString();
+	}
+
+	public void handTo(Dealer dealer, int cnt) {
+		dealer.addCard(cards, cnt);
+//		IntStream.range(0, cnt)
+//			.forEach(i -> dealer.addCard(cards.remove(0)));
+					
+	}
+
+	public void handTo(Player player, int cnt) {
+		player.addCard(cards, cnt);
+//		IntStream.range(0, cnt)
+//			.forEach(i -> player.addCard(cards.remove(0)));
 	}
 }
