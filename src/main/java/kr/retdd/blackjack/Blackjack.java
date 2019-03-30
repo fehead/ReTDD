@@ -20,6 +20,7 @@ public class Blackjack {
 		String line = scanner.nextLine();
 		if(line.toLowerCase().startsWith("q")) {
 			// 종료.
+			scanner.close();
 			return;
 		}
 
@@ -55,8 +56,10 @@ public class Blackjack {
 		}
 		
 		// 결과를 보여준다.
-		System.out.println("Dealer's card : * " + dealer.toString());
+		System.out.println("Result--------------------------------------");
+				System.out.println("Dealer's card : * " + dealer.toString());
 		System.out.println("Your card : " + player.toString());
+		scanner.close();
 	}
 	
 	public static void main(String [] argv) {
