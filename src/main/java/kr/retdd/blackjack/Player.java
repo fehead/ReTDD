@@ -11,6 +11,7 @@ public class Player {
 	private	List<Card>	cards = new ArrayList<>();
 	private	int	money = DEFAULT_MONEY;
 	private	int	bettingMoney = DEFAULT_BETTINGMONEY;
+	private	UserState	state = UserState.HIT;
 	
 	public void addCard(Card card) {
 		cards.add(card);
@@ -49,9 +50,27 @@ public class Player {
 	}
 
 	public void addCard(List<Card> deckCards, int cnt) {
-		deckCards.stream()
-			.limit(cnt)
-			.forEach(deckCard -> addCard(deckCard))
-			;
+		while(0 < cnt--) {
+			addCard(deckCards.remove(0));
+		}
+		
+		if(21 <= calcScore())
+			state = UserState.STAND;
+	}
+
+	public boolean isStand() {
+		return state.equals(UserState.STAND);
+	}
+
+	public void setStand() {
+		state = UserState.STAND;
+	}
+
+	public boolean isHit() {
+		return state.equals(UserState.HIT);
+	}
+	
+	public void setBettingMoney(int b) {
+		bettingMoney = b;
 	}
 }

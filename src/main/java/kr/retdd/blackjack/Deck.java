@@ -47,4 +47,5 @@ public class Deck {
 //		IntStream.range(0, cnt)
 //			.forEach(i -> player.addCard(cards.remove(0)));
 	}
+
 }

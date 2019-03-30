@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class Dealer {
 	private	List<Card>	cards = new ArrayList<>();
+	private	UserState	state = UserState.HIT;
 
 	private void addCard(Card card) {		
 		cards.add(card);
@@ -46,10 +47,19 @@ public class Dealer {
 	}
 
 	public void addCard(List<Card> deckCards, int cnt) {
-		deckCards.stream()
-			.limit(cnt)
-			.filter(deckCard -> calcScore() < 17)
-			.forEach(deckCard -> addCard(deckCard))
-			;
+		while(calcScore() < 17 && 0 < cnt--) {
+			addCard(deckCards.remove(0));
+		}
+		
+		if(17 <= calcScore())
+			state = UserState.STAND;
+	}
+
+	public boolean isStand() {
+		return state.equals(UserState.STAND);
+	}
+
+	public boolean isHit() {
+		return state.equals(UserState.HIT);
 	}
 }
