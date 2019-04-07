@@ -17,14 +17,14 @@ public class Blackjack {
 		// 배팅금액을 입력받는다.
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("배팅금액을 입력해주세요 종료하려면 q를 입력하세요: ");
-		String line = scanner.nextLine();
+		String line = scanner.nextLine().trim();
 		if(line.toLowerCase().startsWith("q")) {
 			// 종료.
 			scanner.close();
 			return;
 		}
 
-		int bettingMoney = Integer.valueOf(line);
+		int bettingMoney = Integer.parseInt(line);
 		player.setBettingMoney(bettingMoney);
 		
 		// 딜러와 플레이어에게 카드 두장을 준다.
