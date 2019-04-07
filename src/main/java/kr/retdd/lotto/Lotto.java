@@ -96,7 +96,7 @@ public class Lotto {
 		
 		int matchCount = lottoNumberSet.size();
 		boolean	matchBonus = numbers.stream().anyMatch(l -> l.equals(getBonusNumber()));
-		return LottoRank.from(matchCount, matchBonus);
+		return LottoRank.of(matchCount, matchBonus);
 	}
 
 }

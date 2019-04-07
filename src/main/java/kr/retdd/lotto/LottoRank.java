@@ -11,12 +11,12 @@ public enum LottoRank {
 	private	int		matchCount;
 	private	boolean	matchBonus;
 	
-	LottoRank(int matchCount, boolean matchBonus) {
+	private LottoRank(int matchCount, boolean matchBonus) {
 		this.matchCount = matchCount;
 		this.matchBonus = matchBonus;
 	}
 	
-	public static LottoRank from(int matchCount, boolean matchBonus) {
+	public static LottoRank of(int matchCount, boolean matchBonus) {
 		for(LottoRank l : values()) {
 			if(l.getMatchCount() == matchCount) {
 				if(l == RANK_2 && !matchBonus)
