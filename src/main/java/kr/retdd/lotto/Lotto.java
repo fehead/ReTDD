@@ -37,7 +37,7 @@ public class Lotto {
 	
 	private void from(String [] numberArr) {
 		lottoNumbers = Arrays.stream(numberArr)
-			.map(LottoNumber::from)
+			.map(LottoNumber::of)
 			.collect(Collectors.toCollection(TreeSet::new));
 	}
 
@@ -74,7 +74,7 @@ public class Lotto {
 	private void initCandidateNumbers() {
 		candiNumbers = IntStream
 				.rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
-				.mapToObj(LottoNumber::from)
+				.mapToObj(LottoNumber::of)
 				.collect(Collectors.toList());
 	}
 	

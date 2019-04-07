@@ -18,23 +18,23 @@ public class LottoNumberTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void 작은수_예외() {
-		LottoNumber.from(0);
+		LottoNumber.of(0);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void 커다란수_예외() {
-		LottoNumber.from(46);
+		LottoNumber.of(46);
 	}
 
 	@Test
 	public void 알맞은_값() {
 		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER ; ++i) {
-			assertThat(LottoNumber.from(i)).isNotNull();
+			assertThat(LottoNumber.of(i)).isNotNull();
 		}
 	}
 	
 	@Test(expected=NumberFormatException.class)
 	public void 숫자가_아닌수() {
-		LottoNumber.from("A");		
+		LottoNumber.of("A");		
 	}
 }

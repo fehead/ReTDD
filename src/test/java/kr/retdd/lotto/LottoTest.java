@@ -56,7 +56,7 @@ public class LottoTest {
 		Set<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
 		assertThat(lottoNumbers).isNotNull();
 		assertThat(lottoNumbers.size()).isEqualTo(6);
-		LottoNumber	before = LottoNumber.from(1);
+		LottoNumber	before = LottoNumber.of(1);
 				
 		for(LottoNumber l : lottoNumbers) {
 			assertThat(l).isGreaterThanOrEqualTo(before);
@@ -153,8 +153,8 @@ public class LottoTest {
 		for(int i = LottoNumber.MIN_NUMBER ; i <= LottoNumber.MAX_NUMBER; ++i) {
 			if(ret.size() == Lotto.LOTTO_SIZE)
 				break;
-			if(!lottoIn(lottoNumbers, LottoNumber.from(i)))
-				ret.add(LottoNumber.from(i));
+			if(!lottoIn(lottoNumbers, LottoNumber.of(i)))
+				ret.add(LottoNumber.of(i));
 		}
 		
 		return ret;
