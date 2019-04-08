@@ -15,8 +15,8 @@ public class Lotto {
 	private	List<LottoNumber> candiNumbers;
 	private	Set<LottoNumber> lottoNumbers;
 	private	LottoNumber			bonusNumber;
-	
-	private	Lotto() {		
+
+	private	Lotto() {
 	}
 
 	static public Lotto generate() {
@@ -24,7 +24,7 @@ public class Lotto {
 		ret.lottery();
 		return ret;
 	}
-	
+
 	static public Lotto generateFrom(String numbers) {
 		String [] numberArr = numbers.split(",");
 		if(numberArr.length != LOTTO_SIZE)
@@ -34,7 +34,7 @@ public class Lotto {
 		ret.from(numberArr);
 		return ret;
 	}
-	
+
 	private void from(String [] numberArr) {
 		lottoNumbers = Arrays.stream(numberArr)
 			.map(LottoNumber::of)
@@ -46,7 +46,7 @@ public class Lotto {
 		pickNumbers();
 	}
 
-	private void pickNumbers() {		
+	private void pickNumbers() {
 		lottoNumbers = IntStream.range(0, LOTTO_SIZE)
 			.mapToObj(i -> pickNumber())
 			.collect(Collectors.toCollection(TreeSet::new));
@@ -60,28 +60,28 @@ public class Lotto {
 	public LottoNumber getBonusNumber() {
 		return bonusNumber;
 	}
-	
+
 	public void printNumbers() {
 		System.out.print("LottoNumber: ");
 		lottoNumbers.stream()
 			.map(l -> l.toString() + " ")
 			.forEach(System.out::print);
-		
+
 		System.out.print("Bonus: " + this.bonusNumber);
 		System.out.println("");
 	}
-	
+
 	private void initCandidateNumbers() {
 		candiNumbers = IntStream
 				.rangeClosed(LottoNumber.MIN_NUMBER, LottoNumber.MAX_NUMBER)
 				.mapToObj(LottoNumber::of)
 				.collect(Collectors.toList());
 	}
-	
-	private int getRandomIndex(int boundrayNum) {		
+
+	private int getRandomIndex(int boundrayNum) {
 		return generator.nextInt(boundrayNum);
 	}
-	
+
 	private LottoNumber pickNumber() {
 		return candiNumbers.remove(getRandomIndex(candiNumbers.size()));
 	}
@@ -91,9 +91,9 @@ public class Lotto {
 	}
 
 	public LottoRank lookAt(Set<LottoNumber> numbers) {
-		Set<LottoNumber>	lottoNumberSet = new TreeSet<>(getLottoNumbers());		
+		Set<LottoNumber>	lottoNumberSet = new TreeSet<>(getLottoNumbers());
 		lottoNumberSet.retainAll(numbers);
-		
+
 		int matchCount = lottoNumberSet.size();
 		boolean	matchBonus = numbers.stream().anyMatch(l -> l.equals(getBonusNumber()));
 		return LottoRank.of(matchCount, matchBonus);
