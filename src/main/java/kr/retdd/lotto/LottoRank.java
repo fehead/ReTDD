@@ -1,21 +1,27 @@
 package kr.retdd.lotto;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public enum LottoRank {
-	RANK_1(6, false),
+	RANK_1(6),
 	RANK_2(5, true),
-	RANK_3(5, false),
-	RANK_4(4, false),
-	RANK_5(3, false),
-	RANK_ETC(0, false);
+	RANK_3(5),
+	RANK_4(4),
+	RANK_5(3),
+	RANK_ETC(0);
 
 	private	int		matchCount;
-	private	boolean	matchBonus;
+	private	Optional<Boolean> matchBonus;
 
+	private LottoRank(int matchCount) {
+		this.matchCount = matchCount;
+		this.matchBonus = Optional.empty();
+	}
+	
 	private LottoRank(int matchCount, boolean matchBonus) {
 		this.matchCount = matchCount;
-		this.matchBonus = matchBonus;
+		this.matchBonus = Optional.of(matchBonus);
 	}
 
 	public static LottoRank of(int matchCount, boolean matchBonus) {
@@ -35,10 +41,16 @@ public enum LottoRank {
 		if(this.matchCount != matchCount)
 			return false;
 
+		return this.matchBonus
+				.map(m -> m.equals(matchBonus))
+				.orElse(true);
+		
+		/*
 		if(this.equals(RANK_2) && this.matchBonus != matchBonus)
 			return false;
 		if(this.equals(RANK_3) && this.matchBonus != matchBonus)
 			return false;
 		return true;
+		*/
 	}
 }
