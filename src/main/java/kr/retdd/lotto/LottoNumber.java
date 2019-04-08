@@ -1,9 +1,7 @@
 package kr.retdd.lotto;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
-@AllArgsConstructor
 @EqualsAndHashCode
 public class LottoNumber implements Comparable<LottoNumber>{
 	public	static final int	MIN_NUMBER = 1;
@@ -11,6 +9,10 @@ public class LottoNumber implements Comparable<LottoNumber>{
 
 	final private	int	number;
 
+	private	LottoNumber(int num) {
+		number = num;
+	}
+	
 	static public LottoNumber of(String numberString) {
 		int number = Integer.parseInt(numberString);
 		return of(number);
