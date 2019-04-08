@@ -15,13 +15,12 @@ public enum LottoRank {
 	private	Optional<Boolean> matchBonus;
 
 	private LottoRank(int matchCount) {
-		this.matchCount = matchCount;
-		this.matchBonus = Optional.empty();
+		this(matchCount, null);
 	}
 	
-	private LottoRank(int matchCount, boolean matchBonus) {
+	private LottoRank(int matchCount, Boolean matchBonus) {
 		this.matchCount = matchCount;
-		this.matchBonus = Optional.of(matchBonus);
+		this.matchBonus = Optional.ofNullable(matchBonus);
 	}
 
 	public static LottoRank of(int matchCount, boolean matchBonus) {
