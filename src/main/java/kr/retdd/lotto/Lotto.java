@@ -25,22 +25,21 @@ public class Lotto {
 		return ret;
 	}
 
-	static public Lotto generateFrom(String numbers) {
-		String [] numberArr = numbers.split(",");
-		if(numberArr.length != LOTTO_SIZE)
+	static public Lotto of(Integer... numbers) {
+		if(numbers.length != LOTTO_SIZE)
 			throw new IllegalArgumentException("로또번호는 " + LOTTO_SIZE + "개 이여야 합니다.");
 
 		Lotto ret = new Lotto();
-		ret.from(numberArr);
+		ret.from(numbers);
 		return ret;
 	}
 
-	private void from(String [] numberArr) {
+	private void from(Integer [] numberArr) {
 		lottoNumbers = Arrays.stream(numberArr)
 			.map(LottoNumber::of)
 			.collect(Collectors.toCollection(TreeSet::new));
 	}
-
+	
 	private void lottery() {
 		initCandidateNumbers();
 		pickNumbers();

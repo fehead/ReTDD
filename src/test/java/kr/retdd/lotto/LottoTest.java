@@ -136,13 +136,13 @@ public class LottoTest {
 
 	@Test
 	public void 수동입력_입력() {
-		Lotto lotto = Lotto.generateFrom("1,2,3,4,5,6");
+		Lotto lotto = Lotto.of(1,2,3,4,5,6);
 		assertThat(lotto.getLottoNumbers().size()).isEqualTo(Lotto.LOTTO_SIZE);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void 수동입력_입력갯수오버예외() {
-		Lotto.generateFrom("1,2,3,4,5,6,7,8,9");
+		Lotto.of(1,2,3,4,5,6,7,8,9);
 	}
 	
 	private Set<LottoNumber> 맞는것_가져오기(Set<LottoNumber> lottoNumbers, int rightCnt) {
