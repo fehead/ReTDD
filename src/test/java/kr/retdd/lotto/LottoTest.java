@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.junit.Before;
@@ -21,7 +20,6 @@ public class LottoTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		lotto = Lotto.generate();
 	}
 	
 	@Test
@@ -33,6 +31,23 @@ public class LottoTest {
 		}
 	}
 	
+	@Test
+	public void Set_교집합() {
+		Set<Integer> l1 = new HashSet<>(Arrays.asList(1, 2, 3));
+		Set<Integer> l2 = new HashSet<>(Arrays.asList(3, 4, 5));
+
+		l1.retainAll(l2);
+		System.out.println(l1);
+
+		l2.retainAll(l1);
+		System.out.println(l2);
+		
+		assertThat(l1).isNotNull();
+		assertThat(l1.size()).isEqualTo(1);
+	}
+
+	
+	/*
 	@Test
 	public void 로또_6개나오게_하기() {
 		Set<LottoNumber>  lottoNumbers = lotto.getLottoNumbers();
@@ -120,21 +135,6 @@ public class LottoTest {
 	}
 	
 	@Test
-	public void Set_교집합() {
-		Set<Integer> l1 = new HashSet<>(Arrays.asList(1, 2, 3));
-		Set<Integer> l2 = new HashSet<>(Arrays.asList(3, 4, 5));
-
-		l1.retainAll(l2);
-		System.out.println(l1);
-
-		l2.retainAll(l1);
-		System.out.println(l2);
-		
-		assertThat(l1).isNotNull();
-		assertThat(l1.size()).isEqualTo(1);
-	}
-
-	@Test
 	public void 수동입력_입력() {
 		Lotto lotto = Lotto.of(1,2,3,4,5,6);
 		assertThat(lotto.getLottoNumbers().size()).isEqualTo(Lotto.LOTTO_SIZE);
@@ -144,6 +144,7 @@ public class LottoTest {
 	public void 수동입력_입력갯수오버예외() {
 		Lotto.of(1,2,3,4,5,6,7,8,9);
 	}
+	*/
 	
 	private Set<LottoNumber> 맞는것_가져오기(Set<LottoNumber> lottoNumbers, int rightCnt) {
 		Set<LottoNumber> ret = lottoNumbers.stream()
