@@ -21,16 +21,6 @@ public class Lotto {
 		return new Lotto(numberSet);
 	}
 
-	public void printNumbers() {
-		System.out.print("LottoNumber: ");
-		lottoNumbers.stream()
-			.map(l -> l.toString() + " ")
-			.forEach(System.out::print);
-
-		// System.out.print("Bonus: " + this.bonusNumber);
-		System.out.println("");
-	}
-	
 	@Override
 	public String toString() {
 		StringJoiner	sj = new StringJoiner(",", "[", "]");
