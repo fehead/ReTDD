@@ -1,5 +1,7 @@
 package kr.retdd.lotto;
 
+import java.util.Random;
+
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
@@ -25,6 +27,11 @@ public class LottoNumber implements Comparable<LottoNumber>{
 		return new LottoNumber(number);
 	}
 
+	static public LottoNumber ofRandom() {
+		int number = new Random().nextInt(MAX_NUMBER - MIN_NUMBER) + MIN_NUMBER;
+		return of(number);
+	}
+	
 	@Override
 	public String toString() {
 		return String.valueOf(number);

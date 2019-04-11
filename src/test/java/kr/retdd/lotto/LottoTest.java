@@ -12,11 +12,12 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import lombok.extern.java.Log;
+
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Log
 public class LottoTest {
-	
-	private	Lotto	lotto;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -46,6 +47,37 @@ public class LottoTest {
 		assertThat(l1.size()).isEqualTo(1);
 	}
 
+	@Test
+	public void 로또_자동_생성() {
+		for(int i = 0 ; i < 100; ++i) {
+			Lotto lotto = Lotto.ofRandom();
+			assertThat(lotto).isNotNull();
+			log.info(lotto.toString());
+		}
+	}
+	
+	@Test
+	public void 로또_수동_생성() {
+		Lotto lotto = Lotto.of(1,2,3,4,5,6);
+		assertThat(lotto).isNotNull();
+		log.info(lotto.toString());
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void 로또_수동_생성_개수많음_예외() {
+		Lotto lotto = Lotto.of(1,2,3,4,5,6,7);
+		log.info(lotto.toString());
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void 로또_수동_생성_개수적음_예외() {
+		Lotto.of(1,2,3,4,5);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void 로또_수동_생성_잘못된숫자_예외() {
+		Lotto.of(1,2,3,4,5,LottoNumber.MAX_NUMBER+1);
+	}
 	
 	/*
 	@Test
