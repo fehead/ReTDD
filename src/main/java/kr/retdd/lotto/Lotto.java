@@ -1,7 +1,6 @@
 package kr.retdd.lotto;
 
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeSet;
@@ -10,17 +9,32 @@ import java.util.stream.Collectors;
 public class Lotto {
 	public	static final int	LOTTO_SIZE = 6;
 	private	Set<LottoNumber> lottoNumbers;
+	LottoNumber	bonusNumber;
 
 	private Lotto(Set<LottoNumber> numberSet) {
 		this.lottoNumbers = numberSet;
 	}
 
+	private Lotto(Set<LottoNumber> numberSet, LottoNumber bonusNumber) {
+		this.lottoNumbers = numberSet;
+		this.bonusNumber= bonusNumber;
+	}
+	
 	public static Lotto ofRandom() {
 		Set<LottoNumber> numberSet = new TreeSet<>();
 		while(numberSet.size() < Lotto.LOTTO_SIZE) {
 			numberSet.add(LottoNumber.ofRandom());
 		}
-		return new Lotto(numberSet);
+		
+		LottoNumber	bonusNumber = null;
+		while(true) {
+			bonusNumber = LottoNumber.ofRandom();
+			if(!numberSet.contains(bonusNumber)) {
+				break;
+			}
+		}
+		
+		return new Lotto(numberSet, bonusNumber);
 	}
 	
 	public static Lotto of(Integer... numbers) {
