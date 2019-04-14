@@ -26,15 +26,7 @@ public class Lotto {
 			numberSet.add(LottoNumber.ofRandom());
 		}
 		
-		LottoNumber	bonusNumber = null;
-		while(true) {
-			bonusNumber = LottoNumber.ofRandom();
-			if(!numberSet.contains(bonusNumber)) {
-				break;
-			}
-		}
-		
-		return new Lotto(numberSet, bonusNumber);
+		return new Lotto(numberSet);
 	}
 	
 	public static Lotto of(Integer... numbers) {
@@ -64,8 +56,33 @@ public class Lotto {
 		lottoNumbers.stream()
 			.forEach(l -> sj.add(l.toString()));
 		
+		if(bonusNumber != null) {
+			sj.add("b:" + bonusNumber.toString());
+		}
 			// .map(l -> sj.add(l.toString()))
 		return sj.toString();
 			
+	}
+
+	public void setBonusNumber(LottoNumber b) {
+		if(lottoNumbers.contains(b)) {
+			throw new IllegalArgumentException("중복된 번호는 보너스 번호로 설정할수 없습니다.");
+		}
+		this.bonusNumber = b;
+	}
+
+	public LottoNumber getBonusNumber() {
+		return this.bonusNumber;
+	}
+
+	public void setRandomBonusNumber() {
+		LottoNumber	bonusNumber = null;
+		while(true) {
+			bonusNumber = LottoNumber.ofRandom();
+			if(!lottoNumbers.contains(bonusNumber)) {
+				this.bonusNumber = bonusNumber;
+				break;
+			}
+		}
 	}
 }

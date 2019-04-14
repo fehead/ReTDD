@@ -78,6 +78,29 @@ public class LottoTest {
 	public void 로또_수동_생성_잘못된숫자_예외() {
 		Lotto.of(1,2,3,4,5,LottoNumber.MAX_NUMBER+1);
 	}
+
+	@Test
+	public void 로또_보너스_번호_설정() {
+		Lotto lotto = Lotto.of(1,2,3,4,5,6);
+		lotto.setBonusNumber(LottoNumber.of(7));
+		assertThat(lotto.getBonusNumber()).isEqualTo(LottoNumber.of(7));
+		log.info(lotto.toString());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void 로또_중복된_보너스_번호_설정() {
+		Lotto lotto = Lotto.of(1,2,3,4,5,6);
+		lotto.setBonusNumber(LottoNumber.of(6));
+	}
+	
+	@Test
+	public void 로또_랜덤_보너스_번호_설정() {
+		Lotto lotto = Lotto.of(2,3,4,5,6,7);
+		for(int i = 0 ; i < 100 ; ++i) {
+			lotto.setRandomBonusNumber();
+			log.info(lotto.toString());
+		}
+	}
 	
 	/*
 	@Test
