@@ -1,6 +1,7 @@
 package kr.retdd.lotto;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.TreeSet;
@@ -9,15 +10,16 @@ import java.util.stream.Collectors;
 public class Lotto {
 	public	static final int	LOTTO_SIZE = 6;
 	private	Set<LottoNumber> lottoNumbers;
-	LottoNumber	bonusNumber;
+	Optional<LottoNumber>	bonusNumber;
 
 	private Lotto(Set<LottoNumber> numberSet) {
 		this.lottoNumbers = numberSet;
+		this.bonusNumber = Optional.empty();
 	}
 
 	private Lotto(Set<LottoNumber> numberSet, LottoNumber bonusNumber) {
 		this.lottoNumbers = numberSet;
-		this.bonusNumber= bonusNumber;
+		this.bonusNumber= Optional.of(bonusNumber);
 	}
 	
 	public static Lotto ofRandom() {
@@ -68,11 +70,11 @@ public class Lotto {
 		if(lottoNumbers.contains(b)) {
 			throw new IllegalArgumentException("중복된 번호는 보너스 번호로 설정할수 없습니다.");
 		}
-		this.bonusNumber = b;
+		this.bonusNumber = Optional.of(b);
 	}
 
 	public LottoNumber getBonusNumber() {
-		return this.bonusNumber;
+		return this.bonusNumber.get();
 	}
 
 	public void setRandomBonusNumber() {
@@ -80,7 +82,7 @@ public class Lotto {
 		while(true) {
 			bonusNumber = LottoNumber.ofRandom();
 			if(!lottoNumbers.contains(bonusNumber)) {
-				this.bonusNumber = bonusNumber;
+				setBonusNumber(bonusNumber);
 				break;
 			}
 		}

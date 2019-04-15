@@ -94,13 +94,14 @@ public class LottoTest {
 	}
 	
 	@Test
-	public void 로또_랜덤_보너스_번호_설정() {
+	public void 로또_랜덤_보너스_번호_설정_중복테스트() {
 		Lotto lotto = Lotto.of(2,3,4,5,6,7);
 		for(int i = 0 ; i < 100 ; ++i) {
 			lotto.setRandomBonusNumber();
 			log.info(lotto.toString());
 		}
 	}
+	
 	
 	/*
 	@Test
