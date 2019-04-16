@@ -87,4 +87,16 @@ public class Lotto {
 			}
 		}
 	}
+
+	public int countMatch(Lotto l2) {
+		Set<LottoNumber> thisLottoNumber = new TreeSet<>(lottoNumbers);
+		thisLottoNumber.retainAll(l2.lottoNumbers);
+		return thisLottoNumber.size();
+	}
+
+	public boolean matchBounus(Lotto l2) {
+		return bonusNumber
+			.map(b -> l2.lottoNumbers.contains(b))
+			.orElse(false);
+	}
 }
