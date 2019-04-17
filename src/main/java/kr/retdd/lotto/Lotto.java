@@ -88,13 +88,20 @@ public class Lotto {
 		}
 	}
 
-	public int countMatch(Lotto l2) {
+	public LottoRank match(Lotto l2) {
+		int matchCount = countMatch(l2);
+		boolean matchBonus = matchBounus(l2);
+		return LottoRank.of(matchCount, matchBonus);
+
+	}
+	
+	private int countMatch(Lotto l2) {
 		Set<LottoNumber> thisLottoNumber = new TreeSet<>(lottoNumbers);
 		thisLottoNumber.retainAll(l2.lottoNumbers);
 		return thisLottoNumber.size();
 	}
 
-	public boolean matchBounus(Lotto l2) {
+	private boolean matchBounus(Lotto l2) {
 		return bonusNumber
 			.map(b -> l2.lottoNumbers.contains(b))
 			.orElse(false);
