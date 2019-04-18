@@ -154,10 +154,30 @@ public class LottoTest {
 	}
 
 	@Test
-	public void 매치_테스트_ETC() {
+	public void 매치_테스트_ETC1() {
 		Lotto l1 = Lotto.of(1,2,3,4,5,6);
 		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,2,7,8,9,10);
+		
+		LottoRank r1 = l1.match(l2);
+		assertThat(r1).isEqualTo(LottoRank.RANK_ETC);
+	}
+	
+	@Test
+	public void 매치_테스트_ETC2() {
+		Lotto l1 = Lotto.of(1,2,3,4,5,6);
+		l1.setBonusNumber(LottoNumber.of(7));
+		Lotto l2 = Lotto.of(1,7,8,9,10,11);
+		
+		LottoRank r1 = l1.match(l2);
+		assertThat(r1).isEqualTo(LottoRank.RANK_ETC);
+	}
+	
+	@Test
+	public void 매치_테스트_ETC3() {
+		Lotto l1 = Lotto.of(1,2,3,4,5,6);
+		l1.setBonusNumber(LottoNumber.of(7));
+		Lotto l2 = Lotto.of(7,8,9,10,11,12);
 		
 		LottoRank r1 = l1.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_ETC);
