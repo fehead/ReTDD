@@ -7,21 +7,19 @@ import java.util.StringJoiner;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Lotto {
 	public	static final int	LOTTO_SIZE = 6;
-	private	Set<LottoNumber> lottoNumbers;
-	Optional<LottoNumber>	bonusNumber;
-
-	private Lotto(Set<LottoNumber> numberSet) {
-		this.lottoNumbers = numberSet;
-		this.bonusNumber = Optional.empty();
-	}
-
-	private Lotto(Set<LottoNumber> numberSet, LottoNumber bonusNumber) {
-		this.lottoNumbers = numberSet;
-		this.bonusNumber= Optional.of(bonusNumber);
-	}
 	
+	@Getter
+	private	Set<LottoNumber> lottoNumbers;	
+
+	protected Lotto(Set<LottoNumber> numberSet) {
+		this.lottoNumbers = numberSet;
+	}
+
 	public static Lotto ofRandom() {
 		Set<LottoNumber> numberSet = new TreeSet<>();
 		while(numberSet.size() < Lotto.LOTTO_SIZE) {
@@ -58,52 +56,8 @@ public class Lotto {
 		lottoNumbers.stream()
 			.forEach(l -> sj.add(l.toString()));
 		
-		if(bonusNumber != null) {
-			sj.add("b:" + bonusNumber.toString());
-		}
 			// .map(l -> sj.add(l.toString()))
 		return sj.toString();
 			
-	}
-
-	public void setBonusNumber(LottoNumber b) {
-		if(lottoNumbers.contains(b)) {
-			throw new IllegalArgumentException("중복된 번호는 보너스 번호로 설정할수 없습니다.");
-		}
-		this.bonusNumber = Optional.of(b);
-	}
-
-	public LottoNumber getBonusNumber() {
-		return this.bonusNumber.get();
-	}
-
-	public void setRandomBonusNumber() {
-		LottoNumber	bonusNumber = null;
-		while(true) {
-			bonusNumber = LottoNumber.ofRandom();
-			if(!lottoNumbers.contains(bonusNumber)) {
-				setBonusNumber(bonusNumber);
-				break;
-			}
-		}
-	}
-
-	public LottoRank match(Lotto l2) {
-		int matchCount = countMatch(l2);
-		boolean matchBonus = matchBounus(l2);
-		return LottoRank.of(matchCount, matchBonus);
-
-	}
-	
-	private int countMatch(Lotto l2) {
-		Set<LottoNumber> thisLottoNumber = new TreeSet<>(lottoNumbers);
-		thisLottoNumber.retainAll(l2.lottoNumbers);
-		return thisLottoNumber.size();
-	}
-
-	private boolean matchBounus(Lotto l2) {
-		return bonusNumber
-			.map(b -> l2.lottoNumbers.contains(b))
-			.orElse(false);
 	}
 }
