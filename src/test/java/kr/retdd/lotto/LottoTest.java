@@ -82,8 +82,8 @@ public class LottoTest {
 	@Test
 	public void 로또_보너스_번호_설정() {
 		Lotto lotto = Lotto.of(1,2,3,4,5,6);
-		lotto.setBonusNumber(LottoNumber.of(7));
-		assertThat(lotto.getBonusNumber()).isEqualTo(LottoNumber.of(7));
+		LottoProvider lp = LottoProvider.of(lotto, LottoNumber.of(7));
+		assertThat(lp).isEqualTo(LottoNumber.of(7));
 		log.info(lotto.toString());
 	}
 	

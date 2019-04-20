@@ -1,18 +1,27 @@
 package kr.retdd.lotto;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class LottoProvider extends Lotto {
+public class LottoProvider {
+	private	Lotto	lotto; 	
 	LottoNumber	bonusNumber;
 	
-	protected LottoProvider(Set<LottoNumber> numberSet, LottoNumber bonusNumber) {
-		super(numberSet);
+	protected LottoProvider(Lotto lotto, LottoNumber bonusNumber) {
+		this.lotto = lotto;
 		this.bonusNumber= bonusNumber;
 	}
 
+	public static LottoProvider of(Lotto lotto, LottoNumber	bonusNumber) {
+		if(lotto.contain(bonusNumber)) {
+			throw new IllegalArgumentException("중복된 번호는 보너스 번호로 설정할수 없습니다.");
+		}
+		return new LottoProvider(lotto, bonusNumber);
+	}
+	
 	public void setBonusNumber(LottoNumber b) {
-		if(getLottoNumbers().contains(b)) {
+		if(lotto.contain(b)) {
 			throw new IllegalArgumentException("중복된 번호는 보너스 번호로 설정할수 없습니다.");
 		}
 		this.bonusNumber = b;
@@ -22,7 +31,7 @@ public class LottoProvider extends Lotto {
 		LottoNumber	bonusNumber = null;
 		while(true) {
 			bonusNumber = LottoNumber.ofRandom();
-			if(!getLottoNumbers().contains(bonusNumber)) {
+			if(!lotto.contain(bonusNumber)) {
 				setBonusNumber(bonusNumber);
 				break;
 			}
@@ -37,9 +46,7 @@ public class LottoProvider extends Lotto {
 	}
 	
 	private int countMatch(Lotto l2) {
-		Set<LottoNumber> thisLottoNumber = new TreeSet<>(getLottoNumbers());
-		thisLottoNumber.retainAll(l2.getLottoNumbers());
-		return thisLottoNumber.size();
+		return lotto.countMatch(l2);
 	}
 
 	private boolean matchBounus(Lotto l2) {

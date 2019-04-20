@@ -49,6 +49,10 @@ public class Lotto {
 					.collect(Collectors.toCollection(TreeSet::new));
 		return new Lotto(numberSet);
 	}
+	
+	public boolean contain(LottoNumber n) {
+		return this.lottoNumbers.contains(n);
+	}
 
 	@Override
 	public String toString() {
@@ -59,5 +63,11 @@ public class Lotto {
 			// .map(l -> sj.add(l.toString()))
 		return sj.toString();
 			
+	}
+
+	public int countMatch(Lotto l2) {
+		Set<LottoNumber> thisLottoNumber = new TreeSet<>(lottoNumbers);
+		thisLottoNumber.retainAll(l2.getLottoNumbers());
+		return thisLottoNumber.size();
 	}
 }
