@@ -18,9 +18,12 @@ import lombok.extern.java.Log;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @Log
 public class LottoTest {
+	private	LottoProvider lottoProvider;
 	
 	@Before
 	public void setUp() throws Exception {
+		Lotto lotto = Lotto.of(1,2,3,4,5,6);
+		lottoProvider = LottoProvider.of(lotto, LottoNumber.of(7));
 	}
 	
 	@Test
@@ -79,25 +82,23 @@ public class LottoTest {
 		Lotto.of(1,2,3,4,5,LottoNumber.MAX_NUMBER+1);
 	}
 
-	@Test
-	public void 로또_보너스_번호_설정() {
-		Lotto lotto = Lotto.of(1,2,3,4,5,6);
-		LottoProvider lp = LottoProvider.of(lotto, LottoNumber.of(7));
-		assertThat(lp).isEqualTo(LottoNumber.of(7));
-		log.info(lotto.toString());
-	}
+//	public void 로또_보너스_번호_설정() {
+//		assertThat(lp).isEqualTo(LottoNumber.of(7));
+//		log.info(lotto.toString());
+//	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void 로또_중복된_보너스_번호_설정() {
 		Lotto lotto = Lotto.of(1,2,3,4,5,6);
-		lotto.setBonusNumber(LottoNumber.of(6));
+		lottoProvider = LottoProvider.of(lotto, LottoNumber.of(6));
 	}
 	
 	@Test
 	public void 로또_랜덤_보너스_번호_설정_중복테스트() {
-		Lotto lotto = Lotto.of(2,3,4,5,6,7);
+		Lotto lotto = Lotto.of(1,2,3,4,5,6);
+		lottoProvider = LottoProvider.of(lotto, LottoNumber.of(7));
 		for(int i = 0 ; i < 100 ; ++i) {
-			lotto.setRandomBonusNumber();
+			lottoProvider.setRandomBonusNumber();
 			log.info(lotto.toString());
 		}
 	}
@@ -105,81 +106,65 @@ public class LottoTest {
 	
 	@Test
 	public void 매치_테스트1() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,2,3,4,5,6);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_1);
 	}
 	
 	@Test
 	public void 매치_테스트2() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,2,3,4,5,7);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_2);
 	}
 	
 	@Test
 	public void 매치_테스트3() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,2,3,4,5,8);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_3);
 	}
 	
 	@Test
 	public void 매치_테스트4() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,2,3,4,7,8);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_4);
 	}
 
 	@Test
 	public void 매치_테스트5() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,2,3,7,8,9);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_5);
 	}
 
 	@Test
 	public void 매치_테스트_ETC1() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,2,7,8,9,10);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_ETC);
 	}
 	
 	@Test
 	public void 매치_테스트_ETC2() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(1,7,8,9,10,11);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_ETC);
 	}
 	
 	@Test
 	public void 매치_테스트_ETC3() {
-		Lotto l1 = Lotto.of(1,2,3,4,5,6);
-		l1.setBonusNumber(LottoNumber.of(7));
 		Lotto l2 = Lotto.of(7,8,9,10,11,12);
 		
-		LottoRank r1 = l1.match(l2);
+		LottoRank r1 = lottoProvider.match(l2);
 		assertThat(r1).isEqualTo(LottoRank.RANK_ETC);
 	}
 	
