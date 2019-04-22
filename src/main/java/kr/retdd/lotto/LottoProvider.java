@@ -1,9 +1,5 @@
 package kr.retdd.lotto;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.TreeSet;
-
 public class LottoProvider {
 	private	Lotto	lotto; 	
 	LottoNumber	bonusNumber;
@@ -55,6 +51,6 @@ public class LottoProvider {
 	
 	@Override
 	public String toString() {
-		return super.toString() + " b:" + bonusNumber.toString();
+		return lotto.toString() + " b:" + bonusNumber.toString();
 	}
 }
