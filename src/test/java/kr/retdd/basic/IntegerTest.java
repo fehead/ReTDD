@@ -70,4 +70,13 @@ public class IntegerTest {
 			}
 		}
 	}
+	
+	
+	@Test
+	public void randomTest() {
+		Random random = new Random();
+		for(int i = 0 ; i < 100000  ; ++i) {
+			System.out.printf(">>>> #%x", random.nextInt() & 0xffffff);
+		}
+	}
 }
