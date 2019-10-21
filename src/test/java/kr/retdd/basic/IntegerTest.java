@@ -79,4 +79,11 @@ public class IntegerTest {
 			System.out.printf(">>>> #%x", random.nextInt() & 0xffffff);
 		}
 	}
+	
+	@Test
+	public void intgerTest4() {
+		for(int i = 0 ; i < 100  ; ++i) {
+			System.out.printf("1191008014%02d\n", i);
+		}
+	}
 }
