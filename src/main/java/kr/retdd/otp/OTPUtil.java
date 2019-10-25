@@ -31,7 +31,7 @@ public class OTPUtil {
 
     //OTP코드 6자리 Check
     public static boolean checkCode(String userCode, String otpkey) {
-        long otpnum = Integer.parseInt(userCode); // OTP 앱에 표시되는 6자리 숫자
+        long otpnum = Long.parseLong(userCode); // OTP 앱에 표시되는 6자리 숫자
         long wave = new Date().getTime() / 30000; // OTP의 주기(초)
         boolean result = false;
         try {
