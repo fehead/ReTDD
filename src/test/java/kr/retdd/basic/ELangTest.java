@@ -20,4 +20,13 @@ public class ELangTest {
 	public void enumTest2() {
 		assertThat(ELang.valueOf("KR") == ELang.kr).isTrue();
 	}
+	
+	@Test
+	public void enumTest3() {
+		assertThat(ELang.kr.toString()).isEqualTo("kr");
+		assertThat(ELang.jp.toString()).isEqualTo("jp");
+		assertThat(ELang.en.toString()).isEqualTo("en");
+		assertThat(ELang.cn.toString()).isEqualTo("cn");
+		
+	}
 }
