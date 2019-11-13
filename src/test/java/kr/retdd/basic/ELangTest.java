@@ -27,6 +27,5 @@ public class ELangTest {
 		assertThat(ELang.jp.toString()).isEqualTo("jp");
 		assertThat(ELang.en.toString()).isEqualTo("en");
 		assertThat(ELang.cn.toString()).isEqualTo("cn");
-		
 	}
 }
