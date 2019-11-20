@@ -58,14 +58,15 @@ public class Question {
 	public String printQuestion() {
 		StringBuilder	sb = new StringBuilder();
 		sb.append(this.question);
-		sb.append("%n");
+		sb.append("\n");
 		for(int i = 0 ; i < itemList.size() ; ++i) {
 			sb.append("\t");
 			sb.append(i+1 + ")");
 			sb.append(itemList.get(i).getItem());
-			sb.append("%n");
+			sb.append("\n");
 		}
-		sb.append("%n");
+		sb.append("\n");
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 
@@ -73,16 +74,17 @@ public class Question {
 	public String printResult() {
 		StringBuilder	sb = new StringBuilder();
 		sb.append(this.question);
-		sb.append("%n");
+		sb.append("\n");
 		for(int i = 0 ; i < itemList.size() ; ++i) {
 			Item item = itemList.get(i);
 			sb.append("\t");
 			sb.append("응답자 : " + item.getAnswerCnt() + "명\t");
 			sb.append(i+1 + ")");
 			sb.append(item.getItem());
-			sb.append("%n");
+			sb.append("\n");
 		}
-		sb.append("%n");
+		sb.append("\n");
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 
@@ -108,7 +110,7 @@ public class Question {
 
 	public void inputAnswer(Scanner sc) {
 		int answerNum = 0;
-		while(selectItem(answerNum)) {
+		while(selectItem(answerNum) == false) {
 			System.out.println("답변을 입력하시요:");
 			answerNum = sc.nextInt();
 		}
