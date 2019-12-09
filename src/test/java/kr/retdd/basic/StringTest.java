@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class StringTest {
-	
+
 	private String fourCharJoin(String invcNo) {
 		List<String> strList = new ArrayList<>();
 		for(int i = 0 ; invcNo != null && i < invcNo.length() ; i += 4) {
@@ -24,8 +24,8 @@ public class StringTest {
 		}
 		return String.join("-", strList);
 	}
-	
-	
+
+
 	@Test
 	public void joinTest() {
 		assertThat(fourCharJoin(null)).isEqualTo("");
@@ -44,5 +44,20 @@ public class StringTest {
 		assertThat(fourCharJoin("012345678901")).isEqualTo("0123-4567-8901");
 		assertThat(fourCharJoin("0123456789012")).isEqualTo("0123-4567-8901-2");
 	}
-		
+
+	@Test
+	public void lengthTest() {
+		String aa =	"AB(중형) 웨더비 프리미엄 라키나 Ver.2-화이트-x";
+		String bb = "CC(소형) 우야꼬 블루투스 스피커M2-다크월넛-x";
+		String cc = "123456789012345678901234567890";
+		String dd = "1234567890123456789012345678901234567890";
+
+		log.info("aa{}, {}", aa.length(), aa.getBytes().length);
+		log.info("bb{}, {}", bb.length(), bb.getBytes().length);
+		log.info("cc{}, {}", cc.length(), cc.getBytes().length);
+		log.info("dd{}, {}", dd.length(), dd.getBytes().length);
+		log.info("aa sub{}", StringUtils.substring(aa, 25));
+		log.info("aa sub{}", StringUtils.left(aa, 25));
+	}
+
 }
