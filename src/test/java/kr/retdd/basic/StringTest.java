@@ -51,11 +51,20 @@ public class StringTest {
 		String bb = "CC(소형) 우야꼬 블루투스 스피커M2-다크월넛-x";
 		String cc = "123456789012345678901234567890";
 		String dd = "1234567890123456789012345678901234567890";
+		String ee =	"일이삼사오";
+		String ff =	"일이삼사오육칠";
 
 		log.info("aa{}, {}", aa.length(), aa.getBytes().length);
 		log.info("bb{}, {}", bb.length(), bb.getBytes().length);
-		log.info("cc{}, {}", cc.length(), cc.getBytes().length);
-		log.info("dd{}, {}", dd.length(), dd.getBytes().length);
+		assertThat(aa.length()).isLessThan(aa.getBytes().length);
+		assertThat(bb.length()).isLessThan(bb.getBytes().length);
+		assertThat(cc.length()).isEqualTo(cc.getBytes().length);
+		assertThat(dd.length()).isEqualTo(dd.getBytes().length);
+
+		log.info("ee{}, {}", ee.length(), ee.getBytes().length);
+		assertThat(ee.length()*3).isEqualTo(ee.getBytes().length);
+		assertThat(ff.length()*3).isEqualTo(ff.getBytes().length);
+
 		log.info("aa sub{}", StringUtils.substring(aa, 25));
 		log.info("aa sub{}", StringUtils.left(aa, 25));
 	}
